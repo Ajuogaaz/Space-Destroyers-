@@ -81,6 +81,8 @@ struct Geometry
     //Number of life on a deathstar
     int d_life;
 
+    ge211::Dimensions deathStar_dims;
+
     ge211::Dimensions falcon_missile_velocity;
     ge211::Dimensions destroyer_missile_velocity;
 

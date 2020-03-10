@@ -19,6 +19,7 @@ Geometry::Geometry() noexcept
         , bottom_margin  {   10 }
         , falcon_velocity { 10, 10 }
         , deathStar_velocity { 3, 3 }
+        ,deathStar_dims{100, 100}
         , destroyer_velocity { 3, 0 }
         , asteroid_velocity {3,3}
         , missile_velocity { 0, -3 }

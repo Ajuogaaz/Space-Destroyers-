@@ -39,6 +39,8 @@ public:
 
     void move_missile();
 
+    void move_deathstar();
+
 ///
 /// Member Variables
 ///
@@ -52,6 +54,8 @@ public:
     std::vector<Asteroid> stones;
 
     Falcon falcon;
+
+    DeathStar deathStar;
 
     ge211::Dimensions destroyerVelocity;
 

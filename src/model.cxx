@@ -1,6 +1,6 @@
 #include "model.hxx"
 #include <ge211.hxx>
-#include <time.h>
+
 
 Model::Model(const Geometry &geometry)
       :geometry_(geometry)
@@ -8,6 +8,7 @@ Model::Model(const Geometry &geometry)
       ,destroyerVelocity(geometry_.destroyer_velocity)
       ,screenState(false)
       ,count(geometry_.destroyer_cols)
+      ,deathStar(geometry_, {50, 50})
 {
 
     innitialize_asteroids();
@@ -51,11 +52,11 @@ void Model::Move_asteroid() {
 
 void Model::update() {
 
-    Move_destroyer();
+    if(!deathStar.appear) Move_destroyer();
     Move_asteroid();
     move_missile();
 
-    if (screenState){
+    if (screenState && !deathStar.appear){
 
         if(falcon_hits_something()){
             falcon.life_ -= 1;
@@ -81,6 +82,49 @@ void Model::update() {
             }
         }
 
+    }
+
+    if (fleet.empty() && falcon.life_ > 0 && deathStar.life >0){
+
+        move_deathstar();
+        if (deathStar.life < 1){
+            deathStar.center = {150, 150};
+            deathStar.life = 3;
+            deathStar.appear = false;
+            screenState = false;
+            stones.clear();
+            ammo.clear();
+            innitialize_destroyers(count);
+            innitialize_asteroids();
+            falcon.center = geometry_.falcon_top_left0();
+            return;
+        }
+        if(falcon_hits_something()){
+            falcon.life_ -= 1;
+            screenState = false;
+            if(falcon.life_ > 0){
+                deathStar.center = {50, 50};
+                screenState = false;
+                stones.clear();
+                ammo.clear();
+                innitialize_asteroids();
+                falcon.center = geometry_.falcon_top_left0();
+                return;
+            }else{
+                deathStar.center = {50, 50};
+                deathStar.life = 3;
+                deathStar.appear = false;
+                screenState = false;
+                stones.clear();
+                ammo.clear();
+                innitialize_destroyers(geometry_.destroyer_cols);
+                count = geometry_.destroyer_cols;
+                innitialize_asteroids();
+                falcon.center = geometry_.falcon_top_left0();
+                falcon.life_ = 3;
+                return;
+            }
+        }
     }
 
 
@@ -120,6 +164,16 @@ void Model::check_asteroid_collision(Asteroid & asteroid) {
 void Model::Move_destroyer() {
     if(screenState) {
 
+        if (fleet.empty() && falcon.life_ > 0) {
+            screenState = false;
+            deathStar.appear = true;
+            stones.clear();
+            ammo.clear();
+            innitialize_asteroids();
+            falcon.center = geometry_.falcon_top_left0();
+
+            return;
+        }
         for(Destroyer& destroyer: fleet){
             if (destroyer.hit_by_missile(ammo)){
                 std::swap(destroyer, fleet.back());
@@ -234,5 +288,32 @@ void Model::move_missile() {
         }
     }
 }
+void Model::move_deathstar() {
+    if(! deathStar.appear && !screenState) return;
 
+    if(deathStar.hit_by_missile(ammo)){
+        deathStar.life -= 1;
+        return;
+    }
+    if(deathStar.hits_side(geometry_)){
+         deathStar.reflect_horizontally();
+         deathStar.fire_missile(ammo, geometry_);
+         //deathStar.fire_missile(ammo, geometry_);
+         //deathStar.fire_missile(ammo, geometry_);
+
+    }
+    deathStar.center += {2* geometry_.destroyer_velocity};
+
+    if(deathStar.center.x == geometry_.scene_dims.width/2 ||
+        deathStar.center.x == geometry_.scene_dims.width/4 ||
+        deathStar.center.x *3 == geometry_.scene_dims.width/4){
+        //deathStar.center.x == geometry_.scene_dims.width/8 ||
+        //deathStar.center.x *7 == geometry_.scene_dims.width/8 ||
+        //deathStar.center.x *5== geometry_.scene_dims.width/8 ) {
+
+        deathStar.fire_missile(ammo, geometry_);
+        //deathStar.fire_missile(ammo, geometry_);
+        //deathStar.fire_missile(ammo, geometry_);
+    }
+}
 

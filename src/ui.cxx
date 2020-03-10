@@ -5,6 +5,7 @@ ge211::Color const asteroid_color{255, 255, 127};
 ge211::Color const destroyer_color{255, 215, 127};
 ge211::Color const missile_color{255, 0, 0 };
 ge211::Color const life_color{10, 200, 0 };
+ge211::Color const deathStar_color{0, 0, 0};
 
 Ui::Ui(Model & model)
    :model_(model)
@@ -28,6 +29,9 @@ void Ui::draw(ge211::Sprite_set & sprites)
     }
     for(int i = 0; i < model_.falcon.life_; i++){
         sprites.add_sprite(life_sprite_, {20 + (i*30), model_.geometry_.scene_dims.height - 80});
+    }
+    if(model_.deathStar.appear){
+        sprites.add_sprite(death_sprite_, model_.deathStar.top_left());
     }
 
 }

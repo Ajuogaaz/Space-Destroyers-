@@ -2,7 +2,7 @@
 #include "model.hxx"
 #include <ge211.hxx>
 
-extern ge211::Color const asteroid_color, falcon_color, destroyer_color, missile_color, life_color;
+extern ge211::Color const asteroid_color, falcon_color, destroyer_color, missile_color, life_color, deathStar_color;
 
 struct Ui : ge211::Abstract_game
 {
@@ -29,6 +29,8 @@ struct Ui : ge211::Abstract_game
             destroyer_sprite_ {model_.geometry_.destroyer_dims, destroyer_color};
      ge211::Rectangle_sprite const
             missile_sprite_ {model_.geometry_.missile_dims, missile_color};
+     ge211::Rectangle_sprite const
+            death_sprite_{model_.geometry_.deathStar_dims, deathStar_color};
 
      ge211::Rectangle_sprite const
             life_sprite_{{10, 10}, life_color};

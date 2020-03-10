@@ -2,21 +2,26 @@
 #include "geometry.hxx"
 #include <ge211.hxx>
 #include "missile.hxx"
-#include "destroyer.hxx"
+#include "screenObject.hxx"
 
-class DeathStar : Destroyer{
+class DeathStar : public ScreenObject{
 
 public:
 
-    explicit DeathStar(Geometry const &);
+    DeathStar(Geometry const &, ge211::Position position);
+
+    ge211::Position top_center(Geometry const & geometry) const;
+
+
+    //bool hits_screenObject(ScreenObject& ) const override;
+
+    void fire_missile(std::vector<Missile> &, Geometry const &);
+
 
     ///
     /// Member Variables
     ///
 
-    ge211::Dimensions velocity;
     int life;
-
-
-
+    bool appear;
 };
