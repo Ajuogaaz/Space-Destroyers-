@@ -80,16 +80,20 @@ bool ScreenObject::got_hit(Missile& missile) const{
 
 bool ScreenObject::hits_screenObject(ScreenObject& obj) const {
 
-    return ((abs(obj.center.x - center.x)) < obj.radius + radius) &&
-            ((abs(obj.center.y - center.y)) < obj.radius + radius);
+     int x = (center.x - obj.center.x) * (center.x - obj.center.x);
+     int y = (center.y - obj.center.y) * (center.y - obj.center.y);
+     int distance = (radius + obj.radius) * (radius + obj.radius);
+
+    return (x + y < distance);
 
 }
 
 bool ScreenObject::hits_destroyer(ScreenObject& obj) const{
-    return !((obj.bottom_right().y < top_left().y) ||
-            (obj.bottom_right().x < top_left().x) ||
-            (center.y + radius < obj.top_left().y) ||
-            (center.x + radius < obj.top_left().x));
+    int x = (center.x - obj.center.x) * (center.x - obj.center.x);
+    int y = (center.y - obj.center.y) * (center.y - obj.center.y);
+    int distance = (radius + obj.radius) * (radius + obj.radius);
+
+    return (x + y  < distance);
 }
 
 

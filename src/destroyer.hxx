@@ -19,6 +19,7 @@ public:
     void fire_missile(std::vector<Missile> &, Geometry const &);
 
 
+
     ///
     /// Member Variables
     ///

@@ -5,10 +5,10 @@
 // This is the default (and only) constructor for `Geometry`. It determines
 // all the default values of all the member variables.
 Geometry::Geometry() noexcept
-        : destroyer_cols {   5}
+        : destroyer_cols {   4}
         , destroyer_rows {   1}
         , asteroid_cols  {   4}
-        , asteroid_rows  {   1}
+        , asteroid_rows  {   2}
         , falcon_dim_    { 60,  60}
         , destroyer_top_margin{  10}
         , asteroid_top_margin { scene_dims.height / 4}
@@ -20,7 +20,7 @@ Geometry::Geometry() noexcept
         , falcon_velocity { 10, 10 }
         , deathStar_velocity { 3, 3 }
         ,deathStar_dims{100, 100}
-        , destroyer_velocity { 3, 0 }
+        , destroyer_velocity { 2, 0 }
         , asteroid_velocity {3,3}
         , missile_velocity { 0, -3 }
         , asteroid_spacing  {   10,   5 }
@@ -33,7 +33,7 @@ Geometry::Geometry() noexcept
         ,asteroid_velocity2{-2, 3}
         ,asteroid_velocity3{-3, 1}
         ,asteroid_velocity4{-2, 2}
-        ,destroyer_dims {80, 80}
+        ,destroyer_dims {75, 75}
         ,falcon_missile_velocity{0,-3}
         ,destroyer_missile_velocity{0,3}
 

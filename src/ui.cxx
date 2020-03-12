@@ -5,7 +5,7 @@ ge211::Color const asteroid_color{255, 255, 127};
 ge211::Color const destroyer_color{255, 215, 127};
 ge211::Color const missile_color{255, 0, 0 };
 ge211::Color const life_color{10, 200, 0 };
-ge211::Color const deathStar_color{0, 0, 0};
+ge211::Color const deathStar_color{255, 255, 255};
 
 Ui::Ui(Model & model)
    :model_(model)
@@ -15,6 +15,7 @@ ge211::Dimensions Ui::initial_window_dimensions() const {
 }
 
 void Ui::draw(ge211::Sprite_set & sprites)
+
 {
     sprites.add_sprite(falcon_sprite_, model_.falcon.top_left());
 
@@ -32,7 +33,12 @@ void Ui::draw(ge211::Sprite_set & sprites)
     }
     if(model_.deathStar.appear){
         sprites.add_sprite(death_sprite_, model_.deathStar.top_left());
+
+        for(int i = 0; i < model_.deathStar.life; i++) {
+            sprites.add_sprite(life_sprite_, {20 + (i * 30), 30});
+        }
     }
+
 
 }
 
@@ -41,7 +47,7 @@ void Ui::on_key(ge211::Key key) {
     if (key == ge211::Key::code('q')){
         quit();
     } else if (key == ge211::Key::code(' ')){
-        model_.launch();
+        if(!model_.screenState) model_.launch();
     }else if(key == ge211::Key::up()){
         model_.falconupdate(1);
     }else if(key == ge211::Key::down()){

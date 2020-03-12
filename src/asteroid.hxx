@@ -11,6 +11,8 @@ public:
 
     ScreenObject next_(ge211::Dimensions);
 
+    bool hit_above_special();
+
 
     ///
     /// Member Variables

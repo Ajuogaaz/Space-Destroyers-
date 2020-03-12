@@ -24,4 +24,5 @@ public:
 
     int life;
     bool appear;
+    ge211::Dimensions velocity;
 };

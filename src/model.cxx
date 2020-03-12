@@ -29,6 +29,8 @@ void Model::launch() {
 
         asteroid.velocity = {1+x*kx, 1+y*ky};
 
+        //asteroid.velocity += {4, 4};
+
     }
 }
 
@@ -84,16 +86,18 @@ void Model::update() {
 
     }
 
-    if (fleet.empty() && falcon.life_ > 0 && deathStar.life >0){
+    if (fleet.empty() && falcon.life_ > 0 && deathStar.life >0 && deathStar.appear){
 
         move_deathstar();
         if (deathStar.life < 1){
-            deathStar.center = {150, 150};
+            deathStar.center = {50 + deathStar.radius, 50 + deathStar.radius};
             deathStar.life = 3;
+            falcon.life_ = 3;
             deathStar.appear = false;
             screenState = false;
             stones.clear();
             ammo.clear();
+            count = geometry_.destroyer_cols;
             innitialize_destroyers(count);
             innitialize_asteroids();
             falcon.center = geometry_.falcon_top_left0();
@@ -103,7 +107,7 @@ void Model::update() {
             falcon.life_ -= 1;
             screenState = false;
             if(falcon.life_ > 0){
-                deathStar.center = {50, 50};
+                deathStar.center = {50 + deathStar.radius, 50+deathStar.radius};
                 screenState = false;
                 stones.clear();
                 ammo.clear();
@@ -111,7 +115,7 @@ void Model::update() {
                 falcon.center = geometry_.falcon_top_left0();
                 return;
             }else{
-                deathStar.center = {50, 50};
+                deathStar.center = {50 + deathStar.radius, 50 + deathStar.radius};
                 deathStar.life = 3;
                 deathStar.appear = false;
                 screenState = false;
@@ -133,6 +137,13 @@ void Model::update() {
 
 void Model::check_asteroid_collision(Asteroid & asteroid) {
 
+    if (deathStar.appear){
+        if(asteroid.hits_screenObject(deathStar)) {
+            asteroid.reflect_horizontally();
+            asteroid.reflect_vertically();
+        }
+    }
+
     if (asteroid.hits_bottom(geometry_) || asteroid.hits_side(geometry_) || asteroid.hits_top(geometry_)){
 
         if(asteroid.hits_bottom(geometry_)) asteroid.reflect_vertically();
@@ -141,12 +152,17 @@ void Model::check_asteroid_collision(Asteroid & asteroid) {
         return;
     }
 
-    for (Destroyer destroyer : fleet){
+   /* for (Destroyer destroyer : fleet){
         if(asteroid.hits_destroyer(destroyer)) {
             asteroid.reflect_vertically();
             asteroid.reflect_horizontally();
             return;
             }
+    }*/
+
+    if(asteroid.hit_above_special()){
+        asteroid.reflect_vertically();
+
     }
 
     for(Asteroid& ast : stones ){
@@ -289,20 +305,20 @@ void Model::move_missile() {
     }
 }
 void Model::move_deathstar() {
-    if(! deathStar.appear && !screenState) return;
+    if(! deathStar.appear || !screenState) return;
 
     if(deathStar.hit_by_missile(ammo)){
         deathStar.life -= 1;
         return;
     }
     if(deathStar.hits_side(geometry_)){
-         deathStar.reflect_horizontally();
+         deathStar.velocity *= -1;
          deathStar.fire_missile(ammo, geometry_);
          //deathStar.fire_missile(ammo, geometry_);
          //deathStar.fire_missile(ammo, geometry_);
 
     }
-    deathStar.center += {2* geometry_.destroyer_velocity};
+    deathStar.center += {deathStar.velocity};
 
     if(deathStar.center.x == geometry_.scene_dims.width/2 ||
         deathStar.center.x == geometry_.scene_dims.width/4 ||

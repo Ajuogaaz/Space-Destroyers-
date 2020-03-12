@@ -9,6 +9,7 @@ DeathStar::DeathStar(Geometry const & geometry, ge211::Position position)
           : ScreenObject(geometry, position, 50)
           ,life(geometry.d_life)
           ,appear(false)
+          ,velocity(geometry.destroyer_velocity*2)
           {}
 
 ge211::Position DeathStar::top_center(Geometry const &geometry) const {

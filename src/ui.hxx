@@ -31,9 +31,9 @@ struct Ui : ge211::Abstract_game
             missile_sprite_ {model_.geometry_.missile_dims, missile_color};
      ge211::Rectangle_sprite const
             death_sprite_{model_.geometry_.deathStar_dims, deathStar_color};
-
      ge211::Rectangle_sprite const
-            life_sprite_{{10, 10}, life_color};
+            life_sprite_{{10,10}, deathStar_color};
+
 
 
 };
