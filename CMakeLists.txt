@@ -30,15 +30,7 @@ add_test_program(screenObject_test
         ${MODEL_SRC})
 target_link_libraries(screenObject_test ge211)
 
-add_test_program(asteroid_test
-        test/asteroid_test.cxx
-        ${MODEL_SRC})
-target_link_libraries(asteroid_test ge211)
-
 add_test_program(missile_test
         test/missile_test.cxx
         ${MODEL_SRC})
 target_link_libraries(missile_test ge211)
-
-
-# vim: ft=cmake

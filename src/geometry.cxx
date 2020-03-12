@@ -5,7 +5,7 @@
 // This is the default (and only) constructor for `Geometry`. It determines
 // all the default values of all the member variables.
 Geometry::Geometry() noexcept
-        : destroyer_cols {   4}
+        : destroyer_cols {   5}
         , destroyer_rows {   1}
         , asteroid_cols  {   4}
         , asteroid_rows  {   2}
