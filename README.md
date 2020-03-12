@@ -1,8 +1,12 @@
 # Proposal: SPACE DESTROYER!
 
+## by : LINUS OKOTH and Maximos Xu
+
 ## About
 Space destroyer is a hybrid version of the 
 classic arcade games Asteroids and Space Invaders.
+
+<img src="gameplay.gif" width=200><br>
 
 ## Synopsis
 
