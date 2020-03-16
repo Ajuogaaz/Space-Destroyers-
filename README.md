@@ -2,6 +2,8 @@
 
 ## by : LINUS OKOTH and Maximos Xu
 
+for any questions or bugs contact us [here](brianlinus1753@gmail.com)
+
 ## About
 Space destroyer is a hybrid version of the 
 classic arcade games Asteroids and Space Invaders.
