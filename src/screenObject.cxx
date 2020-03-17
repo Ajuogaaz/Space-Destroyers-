@@ -50,11 +50,11 @@ ge211::Position ScreenObject::top_left() const {
     ge211::Position topleft = {center.x - radius, center.y - radius};
     return topleft;
 }
-ge211::Position ScreenObject::bottom_right() const{
+/*ge211::Position ScreenObject::bottom_right() const{
 
     ge211::Position  bottomright = {center.x + radius, center.y + radius};
     return bottomright;
-}
+}*/
 
 void ScreenObject::reflect_vertically() {
 
@@ -73,8 +73,6 @@ bool ScreenObject::got_hit(Missile& missile) const{
             (center.y + radius < missile.top_left().y) ||
              (center.x + radius < missile.top_left().x));
 
-    //return ((abs(missile.center_missile_position.x - center.x)) < missile.radius + radius) ||
-            ((abs(missile.center_missile_position.y - center.y)) < missile.radius + radius);
 
 }
 
@@ -88,13 +86,13 @@ bool ScreenObject::hits_screenObject(ScreenObject& obj) const {
 
 }
 
-bool ScreenObject::hits_destroyer(ScreenObject& obj) const{
+/*bool ScreenObject::hits_destroyer(ScreenObject& obj) const{
     int x = (center.x - obj.center.x) * (center.x - obj.center.x);
     int y = (center.y - obj.center.y) * (center.y - obj.center.y);
     int distance = (radius + obj.radius) * (radius + obj.radius);
 
-    return (x + y  < distance);
-}
+    return (x + y  < distance);*/
+//}
 
 
 

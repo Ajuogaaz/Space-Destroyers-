@@ -94,7 +94,6 @@ TEST_CASE("Asteroid Field"){
     Geometry geometry;
     Model model_(geometry);
     model_.launch();
-
     ge211::Dimensions initialvelocity = model_.stones[0].velocity;
     model_.stones[0].center = {300,180};
     model_.update();
