@@ -27,7 +27,8 @@ struct Ui : ge211::Abstract_game
      ge211::Rectangle_sprite const
             falcon_sprite_  {model_.geometry_.falcon_dim_, falcon_color};
      ge211::Rectangle_sprite const
-            destroyer_sprite_ {model_.geometry_.destroyer_dims, destroyer_color};
+            destroyer_sprite_ {model_.geometry_.destroyer_dims,
+                               destroyer_color};
      ge211::Rectangle_sprite const
             missile_sprite_ {model_.geometry_.missile_dims, missile_color};
      ge211::Rectangle_sprite const

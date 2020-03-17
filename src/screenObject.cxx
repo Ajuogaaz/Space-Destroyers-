@@ -10,7 +10,8 @@ ScreenObject::ScreenObject(Geometry const& geometry, ge211::Position position)
              ,radius {10}
 { }
 
-ScreenObject::ScreenObject(Geometry const& geometry, ge211::Position position, int radius)
+ScreenObject::ScreenObject(Geometry const& geometry,
+        ge211::Position position, int radius)
              :alive_{false}
              ,center{position.x+radius, position.y+radius}
              ,velocity{0,0}
