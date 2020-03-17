@@ -2,7 +2,8 @@
 #include "model.hxx"
 #include <ge211.hxx>
 
-extern ge211::Color const asteroid_color, falcon_color, destroyer_color, missile_color, life_color, deathStar_color;
+extern ge211::Color const asteroid_color, falcon_color,
+destroyer_color, missile_color, life_color, deathStar_color;
 
 struct Ui : ge211::Abstract_game
 {

@@ -8,6 +8,7 @@ Model::Model(const Geometry &geometry)
       ,destroyerVelocity(geometry_.destroyer_velocity)
       ,screenState(false)
       ,count(geometry_.destroyer_cols)
+      ,doubt(0)
       ,deathStar(geometry_, {50, 50})
 {
 
@@ -52,12 +53,12 @@ void Model::Move_asteroid() {
 
 }
 
-void Model::update() {
+void Model::update(double dt) {
 
     if(!deathStar.appear) Move_destroyer();
     Move_asteroid();
     move_missile();
-
+    doubt += dt;
     if (screenState && !deathStar.appear){
 
         if(falcon_hits_something()){
